@@ -1,0 +1,112 @@
+<div *ngIf="isCollectionPage && loadingComplete">
+  <h1 class="collection-header">
+    {{collection.collection.name}}
+  </h1>
+  <img src="images/Hand-made_2.png"
+       srcset="images/Hand-made_2-p-500.png 500w, images/Hand-made_2.png 713w"
+       sizes="(max-width: 479px) 71vw, (max-width: 991px) 50px, 80px"
+       alt="" class="image-3">
+  <div class="limited">
+    Ограниченная партия 100% Hand Made.
+  </div>
+  <p class="collection-depiction">
+    {{collection.collection.title}}
+  </p>
+  <ng-container *ngIf="!showAllMode">
+    <div class="siema">
+      <div class="products-wrapper" *ngFor="let page of pages; let i = index">
+        <a *ngFor="let item of page" [routerLink]="['/collection', item._id]"
+           class="product-card w-inline-block">
+          <img
+            [src]="item.imgSrc"
+            sizes="(max-width: 479px) 44vw, (max-width: 991px) 22vw, 175.8125px"
+            [alt]="item.title"
+            class="product-image">
+          <div class="product-name">
+            {{item.title}}
+          </div>
+          <div class="product-price">
+            {{item.cost}} руб.
+          </div>
+        </a>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="showAllMode">
+    <div class="products-wrapper" *ngFor="let page of pages; let i = index">
+      <a *ngFor="let item of page" [routerLink]="['/collection', item._id]"
+         class="product-card w-inline-block">
+        <img
+          [src]="item.imgSrc"
+          sizes="(max-width: 479px) 44vw, (max-width: 991px) 22vw, 175.8125px"
+          [alt]="item.title"
+          class="product-image">
+        <div class="product-name">
+          {{item.title}}
+        </div>
+        <div class="product-price">
+          {{item.cost}} руб.
+        </div>
+      </a>
+    </div>
+  </ng-container>
+  <div class="arrow-navigation">
+    <img src="images/lwft-2x.png" alt="" class="arrow prev" *ngIf="!showAllMode">
+    <a (click)="showAllProducts()" class="main-button w-button" *ngIf="!showAllMode">
+      Показать все
+    </a>
+    <img src="images/right-2x.png" alt="" class="arrow next" *ngIf="!showAllMode">
+  </div>
+</div>
+
+<div *ngIf="!isCollectionPage && loadingComplete">
+  <h1 class="collection-header">
+    Товары про типу {{typeAndItemsArr.multiName}}
+  </h1>
+  <img src="images/Hand-made_2.png"
+       srcset="images/Hand-made_2-p-500.png 500w, images/Hand-made_2.png 713w"
+       sizes="(max-width: 479px) 71vw, (max-width: 991px) 50px, 80px"
+       alt="" class="image-3">
+  <div class="limited">Ограниченная партия 100% Hand Made.</div>
+  <!--<p class="collection-depiction">
+    В основу коллекции вошли фрагменты картин художника Юлии Киселёвой. Вся коллекция
+    исполнена в технике живописи на холсте масляными красками. Яркие подставки под посуду, цветы и декоративные
+    элементы интерьера создают уютную атмосферу летнего настроения и особенный живописный колорит в деталях. Для
+    производства продукции используются специальные бумаги с защитным слоем, картон для подставок и натуральное
+    пробковое полотно. Технология производства рассчитана на ограниченные серии продукции, поэтому каждая коллекция
+    выпускается только один раз в год.
+  </p>-->
+  <ng-container *ngIf="!showAllMode">
+    <div class="siema">
+      <div class="products-wrapper" *ngFor="let page of pages">
+        <app-product-form *ngFor="let item of page" [id]="item.id"
+                          class="product-card w-inline-block">
+        </app-product-form>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="showAllMode">
+      <div class="products-wrapper" *ngFor="let page of pages">
+        <app-product-form *ngFor="let item of page" [id]="item.id"
+                          class="product-card w-inline-block">
+        </app-product-form>
+      </div>
+  </ng-container>
+
+  <div class="arrow-navigation">
+    <img src="images/lwft-2x.png" alt="" class="arrow prev" *ngIf="!showAllMode">
+    <a (click)="showAllProducts()" class="main-button w-button" *ngIf="!showAllMode">
+      Показать все
+    </a>
+    <img src="images/right-2x.png" alt="" class="arrow next" *ngIf="!showAllMode">
+  </div>
+</div>
+
+<div *ngIf="!loadingComplete" style="margin-top: 25%">
+  <app-loader></app-loader>
+</div>
+
+
+
+
+

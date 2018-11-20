@@ -1,0 +1,29 @@
+<div class="main-section">
+  <div class="filter-navigation">
+    <div class="collection-filter">
+      <div class="filter-header">Коллекции</div>
+      <div class="filter-category" *ngFor="let col of collections" [routerLink]="['/collection']"
+           [queryParams]="{'col':col._id}">{{getCorrectCollectionName(col.name)}}
+      </div>
+    </div>
+    <div class="product-type-filter">
+      <div class="filter-header">Продукция</div>
+      <div class="filter-category"
+           *ngFor="let type of ProdTypes"
+           [routerLink]="['/collection']"
+           [queryParams]="{'prodType':type.name}">
+        {{getCorrectTypeName(type.multiName)}}
+      </div>
+    </div>
+  </div>
+  <ng-container *ngIf="isCollection">
+    <div [ngClass]="{'cards-wrapper': isCollection}">
+      <router-outlet></router-outlet>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!isCollection">
+    <div  class="product-wrapper">
+      <router-outlet></router-outlet>
+    </div>
+  </ng-container>
+</div>

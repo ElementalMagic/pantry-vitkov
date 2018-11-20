@@ -1,0 +1,20 @@
+<div class="hero-section">
+  <div class="hero-text">
+    <h1 class="hero-header">Новая коллекция наборов подставок</h1>
+    <p class="paragraph">В основу коллекции вошли фрагменты картин художника Юлии Киселёвой. Вся коллекция исполнена
+      в технике живописи на холсте масляными красками. Яркие подставки под посуду, цветы и декоративные элементы
+      интерьера создают уютную атмосферу.</p><a  data-w-id="d7322b48-b3fc-c306-b95e-51429e7af6d0"
+                                                class="main-button w-button">Смотреть коллекцию</a></div>
+  <img src="images/6.jpg" srcset="images/6-p-500.jpeg 500w, images/6.jpg 800w"
+       sizes="(max-width: 479px) 96vw, (max-width: 767px) 95vw, (max-width: 991px) 96vw, 820px" alt=""
+       class="hero-image lazy"></div>
+
+
+<div class="main">
+
+  <app-single-collection *ngFor="let coll of collections"
+                         [collection]="coll"
+  ></app-single-collection>
+
+</div>
+

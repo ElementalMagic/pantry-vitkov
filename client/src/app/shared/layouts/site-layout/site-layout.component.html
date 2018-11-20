@@ -1,0 +1,83 @@
+<div class="nav-background"></div>
+<div class="container">
+  <header class="header">
+    <div data-collapse="medium" data-animation="default" data-duration="400" class="navbar w-nav">
+      <a [routerLink]="['/']"
+         class="brand w-nav-brand w--current">
+        <img
+          src="images/Logo-PANTRY-VITKOV.png" width="200"
+          srcset="images/Logo-PANTRY-VITKOV-p-500.png 500w,
+            images/Logo-PANTRY-VITKOV-p-800.png 800w, images/Logo-PANTRY-VITKOV-p-1080.png 1080w,
+            images/Logo-PANTRY-VITKOV.png 1239w"
+          sizes="(max-width: 479px) 100vw, 200px"
+          alt="логотип"
+          class="lazy">
+      </a>
+      <nav role="navigation" class="nav-menu w-nav-menu"><a routerLinkActive="active" [routerLink]="['']" class="nav-link w-nav-link w--current">Главная</a>
+        <div data-delay="0" class="dropdown w-dropdown">
+          <div class="dropdown-toggle w-dropdown-toggle">
+            <div class="dropdown-icon w-icon-dropdown-toggle">
+            </div>
+            <a class="nav-link">Коллекции</a>
+          </div>
+          <nav class="dropdown-list w-dropdown-list">
+            <a class="dropdown-link w-dropdown-link" *ngFor="let col of collections"  routerLinkActive="active" [routerLink]="['/collection']" (click)="closeCollectionMenu($event)"
+               [queryParams]="{'col': col._id}">
+              {{col.name.toLowerCase()}}
+            </a>
+          </nav>
+        </div>
+        <div data-delay="0" class="w-dropdown">
+          <div class="dropdown-toggle w-dropdown-toggle">
+            <div class="dropdown-icon w-icon-dropdown-toggle"></div>
+            <a class="nav-link">Продукция</a></div>
+          <nav class="w-dropdown-list">
+            <a [routerLink]="['/collection']" [queryParams]="{'prodType':prodtype.name}" routerLinkActive="active"
+               class="dropdown-link w-dropdown-link" *ngFor="let prodtype of ProdTypes">
+              {{prodtype.multiName}}
+            </a>
+          </nav>
+        </div>
+      </nav>
+      <div class="menu-button w-nav-button">
+        <div class="icon w-icon-nav-menu"></div>
+      </div>
+    </div>
+  </header>
+  <router-outlet></router-outlet>
+</div>
+<footer class="footer">
+  <div class="wrapper">
+    <div class="footer-section">
+      <div class="footer-heading">Контакты</div>
+      <div class="footer-text">ИП Кротова Н.Г.</div>
+      <a href="tel:+79651315014" class="footer-text">+7 (965) 131-50-14</a><a
+      href="mailto:pvitkov18@gmail.com?subject=From%20Vitkov%20Pantry" class="footer-text">pvitkov18@gmail.com</a></div>
+    <div class="footer-section not-show">
+      <div class="footer-heading">Коллекции</div>
+      <a
+        *ngFor="let col of collections"
+        [routerLink]="['/collection']"
+        [queryParams]="{'col': col._id}"
+        class="footer-text">
+        {{getCorrectCollectionName(col.name)}}
+      </a>
+    </div>
+    <div class="footer-section not-show">
+      <div class="footer-heading">Продукция</div>
+      <a *ngFor="let type of ProdTypes"
+         [routerLink]="['/collection']"
+         [queryParams]="{'prodType': type.name}"
+         class="footer-text">{{getCorrectTypeName(type.multiName)}}</a>
+    </div>
+    <div class="footer-section not-show">
+      <div class="footer-heading">Документы</div>
+      <a href="documents/Отказное_письмо_Подставки.PDF" target="_blank" class="footer-text">Подставки</a><a
+      href="documents/Отказное_письмо_-Блокноты.PDF" target="_blank" class="footer-text">Блокноты</a></div>
+    <div class="footer-section">
+      <div class="footer-heading">Сайт</div>
+      <a [routerLink]="['/']" class="footer-text">© Pantry Vitkov 2018</a></div>
+  </div>
+</footer>
+
+

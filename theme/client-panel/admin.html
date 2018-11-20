@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!-- This site was created in Webflow. http://www.webflow.com -->
+<!-- Last Published: Sat Nov 17 2018 13:10:02 GMT+0000 (UTC) -->
+<html data-wf-page="5bf00646df7c09843b2c532b" data-wf-site="5bed61a1d042005064b5ddd7">
+  <head>
+    <meta charset="utf-8" />
+    <title>Admin</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="Webflow" name="generator" />
+    <link href="css/normalize.css" rel="stylesheet" type="text/css" />
+    <link href="css/webflow.css" rel="stylesheet" type="text/css" />
+    <link href="css/admin.css" rel="stylesheet" type="text/css" />
+    <link href="css/vitkov-pantry.webflow.css" rel="stylesheet" type="text/css" />
+    <link href="https://daks2k3a4ib2z.cloudfront.net/img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="https://daks2k3a4ib2z.cloudfront.net/img/webclip.png" rel="apple-touch-icon" />
+  </head>
+  <body>
+    <h1>Привет, Админ!</h1>
+    <form action="" target="_self" nethod="post">
+      <fieldset>
+        <legend>Добавить новую коллекцию</legend>
+        <label for="collection-name">Коллекция:</label>
+        <input type="text" name="collection-name" id="collection-name" placeholder="Введите название коллекции" />
+        <label for="collection-depiction">Описание коллекции:</label>
+        <textarea
+          name="collection-depiction"
+          id="collection-depiction"
+          rows="10"
+          cols="30"
+          placeholder="Введите описание коллекции"
+        ></textarea>
+        <br />
+        <input type="submit" value="Добавить коллекцию" />
+      </fieldset>
+      <fieldset>
+        <legend>Добавить товар</legend>
+        <label for="choose-collection">Из какой коллекции этот товар:</label>
+        <select id="choose-collection" name="choose-collection">
+          <option value="Любимые цветы">Любимые цветы</option>
+          <option value="Цветочный сахар">Цветочный сахар</option>
+        </select>
+        <label for="product-name">Название:</label>
+        <input type="text" name="product-name" id="product-name" placeholder="Введите название товара" />
+        <label for="product-articul">Артикул:</label>
+        <input type="text" name="product-articul" id="product-articul" placeholder="Введите артикул" />
+        <label for="product-barcode">Штрихкод:</label>
+        <input type="text" name="product-barcode" id="product-barcode" placeholder="Введите штрихкод" />
+        <label for="product-complect">Комплектация:</label>
+        <input type="text" name="product-complect" id="product-complect" placeholder="Введите количество товаров" />
+        <label for="product-depiction">Технические характеристики:</label>
+        <textarea
+          name="product-depiction"
+          id="product-depiction"
+          rows="10"
+          cols="50"
+          placeholder="Введите описание товара"
+        ></textarea>
+        <label for="product-price">Стоимость:</label>
+        <input type="text" name="product-price" id="product-price" placeholder="Введите стоимость товара" />
+        <label for="product-url">Ссылка:</label>
+        <input type="text" name="product-url" id="product-url" placeholder="Введите ссылку на Wildberries" />
+        <br /><input type="submit" value="Добавить товар" />
+      </fieldset>
+    </form>
+  </body>
+</html>

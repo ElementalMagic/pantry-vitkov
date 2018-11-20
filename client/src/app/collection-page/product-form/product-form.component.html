@@ -1,0 +1,18 @@
+<ng-container *ngIf="loadingComplete; else loader">
+  <a [routerLink]="['/collection', itemId]" [class]="'product-card '+ extraClass">
+    <img
+      [src]="item.imgSrc"
+      sizes="(max-width: 479px) 44vw, (max-width: 991px) 22vw, 175.8125px"
+      [alt]="item.title"
+      class="product-image">
+    <div class="product-name">
+      {{item.title}}
+    </div>
+    <div class="product-price">
+      {{item.cost}} руб.
+    </div>
+  </a>
+</ng-container>
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>
