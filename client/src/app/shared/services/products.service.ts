@@ -69,6 +69,7 @@ export class ProductsService {
       fd.append('image', image, image.name);
     }
 
+
     fd.append('title', product.title);
     fd.append('prodType', product.prodType);
     fd.append('collectionId', product.collectionId);
@@ -76,7 +77,6 @@ export class ProductsService {
     fd.append('barcode', product.barcode);
     fd.append('weight', product.weight);
     fd.append('equipment', product.equipment);
-    fd.append('prodType', product.prodType);
     fd.append('specs', product.specs);
     fd.append('cost', product.cost);
     fd.append('marketUrl', product.marketUrl);
@@ -95,7 +95,7 @@ export class ProductsService {
       fd.append('image', image, image.name);
     }
 
-    fd.append('name', product.title);
+    fd.append('title', product.title);
     fd.append('prodType', product.prodType);
     fd.append('collectionId', product.collectionId);
     fd.append('vendorCode', product.vendorCode);
@@ -122,5 +122,9 @@ export class ProductsService {
       params.set('offset', offset.toString())
     }
     return this.http.get<ProductType>('/api/production/types', {params: params});
+  }
+
+  patchType(id,multiName: string):Observable<ProductType>{
+    return this.http.patch<ProductType>(`/api/production/type/${id}`, {multiName: multiName});
   }
 }

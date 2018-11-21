@@ -1,68 +1,115 @@
-<<h1 style="">Привет, Админ!</h1>
-<form action="" target="_self" nethod="post">
-  <fieldset>
-    <legend>Добавить новую коллекцию</legend>
-    <label for="collection-name">Коллекция:</label>
-    <input [(ngModel)]="newColName" type="text" name="collection-name" id="collection-name"
-           placeholder="Введите название коллекции"/>
-    <label for="collection-depiction">Описание коллекции:</label>
-    <textarea
-      name="collection-depiction"
-      id="collection-depiction"
-      rows="10"
-      cols="30"
-      placeholder="Введите описание коллекции"
-      [(ngModel)]="newColTitle"
-    ></textarea>
-    <br/>
-    <input (click)="addNewCollection()" type="submit" value="Добавить коллекцию"/>
-  </fieldset>
-  <fieldset>
-    <legend>Добавить товар</legend>
-    <label for="choose-collection">Из какой коллекции этот товар:</label>
-    <select id="choose-collection" name="choose-collection"
-            (change)="selectCollectionIdForNewProduct($event.target.value)">
-      <option *ngFor="let col of collectionList" [value]="col._id" (click)="selectCollectionIdForNewProduct(col._id)">
-        {{col.name}}
-      </option>
-    </select>
-    <label for="product-name">Название:</label>
-    <input [(ngModel)]="newProdutct.title" type="text" name="product-name" id="product-name"
-           placeholder="Введите название товара"/>
-    <label for="product-name">Фото:</label>
-    <input  type="file" name="product-name" id="product-photo" (change)="onFileUpload($event)"
-           placeholder="Выберите фото товара"/>
-    <label for="product-name">Тип продукта:</label>
-    <input [(ngModel)]="newProdutct.prodType" type="text" name="product-name" id="product-type"
-           placeholder="Набор, подставка и тд"/>
-    <label for="product-articul">Артикул:</label>
-    <input [(ngModel)]="newProdutct.vendorCode" type="text" name="product-articul" id="product-articul"
-           placeholder="Введите артикул"/>
-    <label for="product-barcode">Штрихкод:</label>
-    <input [(ngModel)]="newProdutct.barcode" type="text" name="product-barcode" id="product-barcode"
-           placeholder="Введите штрихкод"/>
-    <label for="product-barcode">Вес:</label>
-    <input [(ngModel)]="newProdutct.weight" type="text" name="product-barcode" id="product-weight"
-           placeholder="Введите вес"/>
-    <label for="product-complect">Комплектация:</label>
-    <input [(ngModel)]="newProdutct.equipment" type="text" name="product-complect" id="product-complect"
-           placeholder="Введите количество товаров"/>
-    <label for="product-depiction">Технические характеристики:</label>
-    <textarea
-      name="product-depiction"
-      id="product-depiction"
-      rows="10"
-      cols="50"
-      placeholder="Введите описание товара"
-      [(ngModel)]="newProdutct.specs"
-    ></textarea>
-    <label for="product-price">Стоимость:</label>
-    <input [(ngModel)]="newProdutct.cost" type="text" name="product-price" id="product-price"
-           placeholder="Введите стоимость товара"/>
-    <label for="product-url">Ссылка:</label>
-    <input [(ngModel)]="newProdutct.marketUrl" type="text" name="product-url" id="product-url"
-           placeholder="Введите ссылку на Wildberries"/>
-    <br/><input type="submit" value="Добавить товар" (click)="addNewProduct()"/>
-  </fieldset>
-</form>
+<div style="margin: auto;
+    width: 50%;
+    padding: 10px;">
+  <h1 style="">Привет, Админ!</h1>
+  <form action="" target="_self" nethod="post">
+    <fieldset style="display: inline-block; margin-right: 10px;">
+      <legend>Добавить новую коллекцию</legend>
+      <label for="collection-name">Коллекция:</label>
+      <input [(ngModel)]="newColName" type="text" name="collection-name" id="collection-name"
+             placeholder="Введите название коллекции"/>
+      <label for="collection-depiction">Описание коллекции:</label>
+      <textarea
+        name="collection-depiction"
+        id="collection-depiction"
+        rows="10"
+        cols="30"
+        placeholder="Введите описание коллекции"
+        [(ngModel)]="newColTitle"
+      ></textarea>
+      <br/>
+      <input (click)="addNewCollection()" type="submit" value="Добавить коллекцию"/>
+    </fieldset>
 
+
+    <fieldset style="display: inline-block;">
+      <label for="choose-collection">Тип продукта:</label>
+      <select id="choose-prodType" name="choose-prodtype"
+              (change)="selectProdType($event.target.value)">
+        <option *ngFor="let col of prodTypesList" [value]="col._id">
+          {{col.name}}
+        </option>
+      </select>
+      <legend>Отредактировать тип продукта</legend>
+      <label for="collection-name">Название тиа в единственном числе:</label>
+      <input [(ngModel)]="prodTypeModelName" type="text" name="prodTypeModelName"
+             placeholder="Введите название коллекции"/>
+      <label for="collection-name">Название типа во множественном числе</label>
+      <input [(ngModel)]="prodTypeModelMultiname" type="text" name="prodTypeModelMultiname"
+             placeholder="Введите название коллекции"/>
+      <br/>
+      <input (click)="updateProdType()" type="submit" [value]="!productSaving ? 'Сохранить': 'Сохранение...'"
+             [disabled]="productSaving"/>
+    </fieldset>
+    <fieldset style="display:inline-block;">
+      <legend>Логирование операций</legend>
+      <label for="log">Лог</label>
+      <textarea name="log" id="log" cols="30" rows="10" [(ngModel)]="logFile" ></textarea>
+    </fieldset>
+
+    <fieldset>
+      <legend>Добавить товар</legend>
+      <input type="button" value="Очистить поля" (click)="resetNewProd()"/>
+      <br/>
+      <label for="choose-collection">Из какой коллекции этот товар:</label>
+      <select id="choose-collection" name="choose-collection"
+              (change)="selectCollectionIdForNewProduct($event.target.value)">
+        <option *ngFor="let col of collectionList" [value]="col._id" (click)="selectCollectionIdForNewProduct(col._id)">
+          {{col.name}}
+        </option>
+      </select>
+      <ng-container *ngIf="productList.length > 0">
+        <select id="choose-product" name="choose-product"
+                (change)="selectProduct($event.target.value)">
+          <option value=""></option>
+          <option *ngFor="let col of productList" [value]="col._id" (click)="selectCollectionIdForNewProduct(col._id)">
+            {{col.title}}
+          </option>
+        </select>
+      </ng-container>
+      <label for="product-name">Название:</label>
+      <input [(ngModel)]="newProdutct.title" type="text" name="product-name" id="product-name"
+             placeholder="Введите название товара"/>
+      <label for="product-photo">Фото:</label>
+      <input type="file" name="product-photo" id="product-photo" (change)="onFileUpload($event)"
+             placeholder="Выберите фото товара"/>
+      <label for="product-type">Тип продукта:</label>
+      <input [(ngModel)]="newProdutct.prodType" type="text" name="product-type" id="product-type"
+             placeholder="Набор, подставка и тд"/>
+      <label for="product-articul">Артикул:</label>
+      <input [(ngModel)]="newProdutct.vendorCode" type="text" name="product-articul" id="product-articul"
+             placeholder="Введите артикул"/>
+      <label for="product-barcode">Штрихкод:</label>
+      <input [(ngModel)]="newProdutct.barcode" type="text" name="product-barcode" id="product-barcode"
+             placeholder="Введите штрихкод"/>
+      <label for="product-weight">Вес:</label>
+      <input [(ngModel)]="newProdutct.weight" type="text" name="product-weight" id="product-weight"
+             placeholder="Введите вес"/>
+      <label for="product-complect">Комплектация:</label>
+      <input [(ngModel)]="newProdutct.equipment" type="text" name="product-complect" id="product-complect"
+             placeholder="Введите количество товаров"/>
+      <label for="product-depiction">Технические характеристики:</label>
+      <textarea
+        name="product-depiction"
+        id="product-depiction"
+        rows="10"
+        cols="50"
+        placeholder="Введите описание товара"
+        [(ngModel)]="newProdutct.specs"
+      >
+    </textarea>
+      <label for="product-price">Стоимость:</label>
+      <input [(ngModel)]="newProdutct.cost" type="text" name="product-price" id="product-price"
+             placeholder="Введите стоимость товара"/>
+      <label for="product-url">Ссылка:</label>
+      <input [(ngModel)]="newProdutct.marketUrl" type="text" name="product-url" id="product-url"
+             placeholder="Введите ссылку на Wildberries"/>
+      <br/><input type="submit" value="Добавить товар" (click)="addNewProduct()"/>
+      <br/><input type="submit" value="Обновить товар" (click)="updateProduct()"/>
+      <br/><input type="submit" value="Удалить товар" (click)="updateProduct()"/>
+
+    </fieldset>
+
+  </form>
+
+</div>

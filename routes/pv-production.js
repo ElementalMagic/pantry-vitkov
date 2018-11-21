@@ -92,13 +92,15 @@ router.post('/', passport.authenticate('jwt', {session: false}), upload.single('
             imgSrc: req.file ? path : ''
         });
         await candidate.save();
-        let typeCandidate = await ProdTypeModel.findOne({name: req.body.prodType.toLowerCase()});
+        let typeCandidate = await ProdTypeModel.findOne({name: req.body.prodType.toString().toLowerCase()});
 
 
         if (typeCandidate) {
             typeCandidate.products.push({'id': candidate._id});
         } else {
+            console.log(req.body);
             typeCandidate = new ProdTypeModel({
+
                 name: req.body.prodType.toLowerCase(),
                 products: [{id: candidate._id}]
             });
@@ -107,7 +109,7 @@ router.post('/', passport.authenticate('jwt', {session: false}), upload.single('
         typeCandidate.save();
         res.status(200).json(candidate);
     } catch (e) {
-        console.log(e.message);
+        console.log(e);
     }
 });
 
