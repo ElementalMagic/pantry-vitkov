@@ -17,7 +17,7 @@ router.post('/login', async function (req, res) {
             const token = jwt.sign({
                 email: ADMIN_LOGIN,
                 userId: 'admin'
-            }, keys.jwt, {expiresIn: 60 * 60});
+            }, keys.jwt, {expiresIn: 60*60*60*60});
 
             res.status(200).json({
                 token: `Bearer ${token}`
