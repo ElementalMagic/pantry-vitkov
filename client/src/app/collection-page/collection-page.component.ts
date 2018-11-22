@@ -42,20 +42,21 @@ export class CollectionPageComponent implements OnInit, OnDestroy, OnChanges, Af
           this.mainService.getItemsByType(params['prodType']).subscribe(res => {
             this.loadingComplete = true;
             this.typeAndItemsArr = res;
+            let temprArr = [];
             if (res.products.length <= 12) {
-              this.pages.push(res.products);
+              temprArr.push(res.products);
             } else {
-              this.pages.push(res.products.splice(0, STEP));
+              temprArr.push(res.products.splice(0, STEP));
               while (res.products.length > STEP - 2) {
-                this.pages.push(res.products.splice(0, STEP));
+                temprArr.push(res.products.splice(0, STEP));
               }
             }
-
+            this.pages = temprArr.splice(0, temprArr.length);
             setTimeout(function () {
               this.mySiema = new Siema();
               document.querySelector('.prev').addEventListener('click', () => this.mySiema.prev());
               document.querySelector('.next').addEventListener('click', () => this.mySiema.next());
-            }, 10);
+            }, 100);
             console.log(this.pages);
           })
         } else if (params['col']) {
@@ -65,6 +66,7 @@ export class CollectionPageComponent implements OnInit, OnDestroy, OnChanges, Af
             offset: OFFSET,
             limit: 0
           }, params['col']).subscribe(res => {
+            this.pages = [];
             this.loadingComplete = true;
             this.collection = res;
             if (res.collectionItems.length <= 12) {
@@ -93,7 +95,7 @@ export class CollectionPageComponent implements OnInit, OnDestroy, OnChanges, Af
   }
 
   updateVars() {
-    this.pages = [];
+
     this.loadingComplete = false;
     this.showAllMode = false;
   }
