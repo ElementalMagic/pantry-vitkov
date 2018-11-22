@@ -33,6 +33,7 @@ html {
   color: #3d3d3d;
   font-size: 16px;
   position: relative;
+  padding-bottom: 250px;
 }
 .navbar {
   display: -webkit-box;
@@ -159,12 +160,18 @@ html {
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
 }
+
+.products-wrapper:after {
+  content: "";
+  flex: auto;
+}
+
 .product-image {
   width: 100%;
   margin-bottom: 20px;
 }
 .product-card {
-  width: 22%;
+  width: 25%;
   margin-bottom: 30px;
   padding-bottom: 20px;
   -webkit-transform: translate(0, 0);
@@ -172,7 +179,10 @@ html {
   transform: translate(0, 0);
   color: #3d3d3d;
   text-decoration: none;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
 }
+
 .product-card:hover {
   background-color: rgba(0, 152, 255, 0);
   -webkit-transform: none;
@@ -514,6 +524,7 @@ html {
   margin-bottom: 10px;
   color: #707070;
   font-weight: 300;
+  width: 100%;
 }
 .depiction-type.price {
   width: 100%;
@@ -526,7 +537,7 @@ html {
   height: 150px;
   margin-top: 20px;
   margin-right: 30px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
@@ -643,6 +654,10 @@ html {
   align-items: flex-start;
 }
 @media (max-width: 991px) {
+  .body {
+    padding-bottom: 230px;
+  }
+
   .container {
     width: 100%;
     padding-right: 20px;
@@ -684,7 +699,7 @@ html {
     margin-top: 80px;
   }
   .product-card {
-    width: 23%;
+    width: 25%;
   }
   .menu-button {
     margin-left: auto;
@@ -743,6 +758,9 @@ html {
   }
 }
 @media (max-width: 767px) {
+  .body {
+    padding-bottom: 200px;
+  }
   .brand {
     padding-left: 0;
   }
@@ -762,7 +780,7 @@ html {
     font-size: 13px;
   }
   .product-card {
-    width: 23%;
+    width: 25%;
   }
   .product-name {
     font-size: 15px;
@@ -775,7 +793,7 @@ html {
   }
   .footer {
     height: auto;
-    margin-top: 30px;
+    margin-top: 0px;
     padding-top: 20px;
     padding-bottom: 20px;
     -webkit-flex-wrap: nowrap;
@@ -815,6 +833,9 @@ html {
   }
 }
 @media (max-width: 479px) {
+  .body {
+    padding-bottom: 200px;
+  }
   .container {
     padding-right: 10px;
     padding-left: 10px;
@@ -861,7 +882,7 @@ html {
     margin-bottom: 10px;
   }
   .product-card {
-    width: 46%;
+    width: 50%;
     margin-bottom: 5px;
   }
   .main-button {
