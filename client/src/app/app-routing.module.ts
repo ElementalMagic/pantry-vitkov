@@ -34,7 +34,6 @@ const routes: Routes = [
         redirectTo: '',
         pathMatch: 'full'
       },
-
       {
         path: 'collection',
         component: SecondaryLayoutComponent,
@@ -47,7 +46,6 @@ const routes: Routes = [
             path: ':id',
             component: ProductPageComponent
           }
-
         ]
       },
     ],
