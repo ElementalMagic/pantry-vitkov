@@ -41,10 +41,41 @@
       <input (click)="updateProdType()" type="submit" [value]="!productSaving ? 'Сохранить': 'Сохранение...'"
              [disabled]="productSaving"/>
     </fieldset>
+
+
+
     <fieldset style="display:inline-block;">
       <legend>Логирование операций</legend>
       <label for="log">Лог</label>
-      <textarea name="log" id="log" cols="30" rows="10" [(ngModel)]="logFile" ></textarea>
+      <textarea name="log" id="log" cols="30" rows="10" [(ngModel)]="logFile"></textarea>
+    </fieldset>
+
+    <fieldset style="display: inline-block; margin-right: 10px;">
+      <legend>Отредактировать коллекцию</legend>
+      <select name="choose-сol"
+              (change)="selectColForUpdate($event.target.value)">
+        <option [value]=""></option>
+        <option *ngFor="let col of collectionList" [value]="col._id">
+          {{col.name}}
+        </option>
+      </select>
+      <label>Коллекция:</label>
+      <input [(ngModel)]="rewriteCol.name" type="text" name="red-collection-depiction"
+             placeholder="Введите название коллекции" [disabled]="rewriteCol._id === ''"/>
+      <label for="collection-depiction">Описание коллекции:</label>
+      <textarea
+        name="red-collection-title"
+        rows="10"
+        cols="30"
+        placeholder="Введите описание коллекции"
+        [(ngModel)]="rewriteCol.title"
+        [disabled]="rewriteCol._id === ''"
+      ></textarea>
+      <label>ID:</label>
+      <input [(ngModel)]="rewriteCol._id" type="text" name="red-collection-id" [disabled]="true"
+             placeholder="ID коллекции"/>
+      <br/>
+      <input (click)="patchNewCollection()" type="submit" value="Обновить" [disabled]="rewriteCol._id === ''"/>
     </fieldset>
 
     <fieldset>
@@ -107,9 +138,9 @@
       <label for="product-url">Ссылка:</label>
       <input [(ngModel)]="newProdutct.marketUrl" type="text" name="product-url" id="product-url"
              placeholder="Введите ссылку на Wildberries"/>
-      <br/><input type="submit" value="Добавить товар" (click)="addNewProduct()"/>
-      <br/><input type="button" value="Обновить товар" (click)="updateProduct()"/>
-      <br/><input type="button" value="Удалить товар" (click)="deleteProduct()" [disabled]="true"/>
+      <br/><input type="submit" value="Добавить товар" (click)="addNewProduct()" [disabled]="image === null"/>
+      <br/><input type="button" value="Обновить товар" (click)="updateProduct()" [disabled]="newProdutct._id === ''"/>
+      <br/><input type="button" value="Удалить товар" (click)="deleteProduct()" [disabled]="newProdutct._id === ''"/>
 
     </fieldset>
 

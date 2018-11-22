@@ -14,6 +14,7 @@ export class AdminPageComponent implements OnInit {
   prodTypeSelectedId = '';
   productSaving = false;
   collectionList: Collection[] = [];
+  rewriteCol = {_id: '', name:'', title: ''};
   newProdutct = {
     _id: '',
     barcode: '',
@@ -30,13 +31,13 @@ export class AdminPageComponent implements OnInit {
   };
   newColName = '';
   newColTitle = '';
-  image: File;
+  image: File = null;
   firstLoad  = true;
 
   logFile = '';
 
   productList: Item[] = [];
-
+gi
   constructor(private mainService: ProductsService) {
   }
 
@@ -58,14 +59,12 @@ export class AdminPageComponent implements OnInit {
     let sub = this.mainService.createCollection({name: this.newColName, title: this.newColTitle}).subscribe(res => {
       this.lg('Новая коллекция успешно добавлена!');
       this.lg(JSON.stringify(res));
-      console.log(res);
       this.collectionList.push(res);
       sub.unsubscribe();
     })
   }
 
   selectCollectionIdForNewProduct(id: string) {
-    console.log(id);
     // @ts-ignore
     this.newProdutct.collectionId = id;
     this.mainService.getCollectionAndCollectionItemsById({}, id).subscribe(res => {
@@ -96,6 +95,17 @@ export class AdminPageComponent implements OnInit {
 
   }
 
+  selectColForUpdate(id){
+    if(id) {
+      // @ts-ignore
+      this.rewriteCol = this.collectionList.find(p => {
+        return p._id === id;
+      });
+    } else {
+      this.rewriteCol._id = '';
+    }
+  }
+
   selectProduct(id){
     if(id) {
       // @ts-ignore
@@ -122,34 +132,31 @@ export class AdminPageComponent implements OnInit {
     this.image = file;
 
     this.lg('Изображение выбрано.');
-    console.log("Файл изменен");
   }
 
   addNewProduct() {
-    // @ts-ignore
-    console.log(this.newProdutct);
     if (this.image && this.newProdutct.title != '') {
       // @ts-ignore
       this.mainService.createItem(this.newProdutct, this.image).subscribe(res => {
         this.lg('Продукт создан!');
         this.lg(JSON.stringify(res));
-        console.log(res);
+        this.newProdutct._id = res._id;
       });
     }
   }
 
   updateProduct(){
-    console.log(this.newProdutct);
-    this.mainService.updateItem(this.newProdutct._id, this.newProdutct, this.image).subscribe(res => {
-      this.lg('Продукт обновлен!');
-      this.lg(JSON.stringify(res));
-      console.log(res);
-    })
+    let ask = confirm(`Точно изменить товар ${this.newProdutct.title}?`);
+    if(ask) {
+      this.mainService.updateItem(this.newProdutct._id, this.newProdutct, this.image).subscribe(res => {
+        this.lg('Продукт обновлен!');
+        this.lg(JSON.stringify(res));
+      })
+    }
   }
 
   updateProdType(){
     this.productSaving = true;
-    console.log( this.prodTypeModelMultiname);
     this.mainService.patchType(this.prodTypeSelectedId, this.prodTypeModelMultiname).subscribe(res=>{
       this.lg('Тип продукта успешно изменен');
       this.productSaving = false;
@@ -180,6 +187,25 @@ export class AdminPageComponent implements OnInit {
   }
 
   deleteProduct(){
+    let ask = confirm(`Точно удалить товар ${this.newProdutct.title}?`);
+    if(ask){
+      this.mainService.deleteItem(this.newProdutct._id).subscribe(res=>{
+        this.lg(`Товар ${this.newProdutct.title} удален!`);
+        let index = this.productList.findIndex(p=>{
+          return p._id == this.newProdutct._id;
+        });
+        this.productList.splice(index,1);
+        this.resetNewProd();
+      })
+    }
+  }
 
+  patchNewCollection(){
+    let ask = confirm(`Точно изменить коллекцию ${this.rewriteCol.name}?`);
+    if(ask) {
+      this.mainService.updateCollection(this.rewriteCol._id, this.rewriteCol).subscribe(res => {
+        this.lg(`Коллекция ${this.rewriteCol.name} успешна изменена!`);
+      });
+    }
   }
 }

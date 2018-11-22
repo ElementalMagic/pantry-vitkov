@@ -42,6 +42,10 @@ select {
   padding-left: 10px;
 }
 
+
+.sub-button{
+  border: 0px solid #3d3d3d;
+}
 input[type="submit"] {
   width: 400px;
   height: 50px;
@@ -78,13 +82,22 @@ input[type="submit"][disabled] {
   text-transform: uppercase;
 }
 
+input[type="button"]{
+  width: 400px;
+  height: 40px;
+  background-color: hsla(260, 1%, 54%, 0.05);
+  color: #3d3d3d;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+}
 
 input[type="button"][disabled] {
   width: 400px;
-  height: 50px;
-  border: 2px solid #3d3d3d;
-  background-color: hsla(0, 0%, 12%, 0.85);
-  font-color: #ffffff;
+  height: 40px;
+  background-color: hsla(0, 0%, 78%, 0.76);
+  color: #3d3d3d;
   font-weight: 600;
   text-align: center;
   text-decoration: none;
@@ -95,3 +108,4 @@ input[type="button"]:hover {
   background-color: #3d3d3d;
   color: #fff;
 }
+
