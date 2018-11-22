@@ -43,11 +43,13 @@ export class AdminPageComponent implements OnInit {
   ngOnInit() {
     this.mainService.getAllCollections({}).subscribe(res => {
       this.collectionList = res;
+      if(res.length > 0)
       this.selectCollectionIdForNewProduct(res[0]._id);
     });
 
     this.mainService.getTypesList().subscribe(res => {
       this.prodTypesList = res;
+      if(res.length > 0)
       this.selectProdType(res[0]._id);
     });
   }
@@ -175,5 +177,9 @@ export class AdminPageComponent implements OnInit {
 
   lg(str){
     this.logFile += '\n'+str;
+  }
+
+  deleteProduct(){
+
   }
 }

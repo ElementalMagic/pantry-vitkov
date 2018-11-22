@@ -29,7 +29,7 @@ router.get('/type', async function (req, res) {
         console.log(e);
     }
 });
-router.patch('/type/:id', async function (req, res) {
+router.patch('/type/:id',passport.authenticate('jwt', {session: false}), async function (req, res) {
     try {
         const type = await ProdTypeModel.findOneAndUpdate({_id: req.params.id}, {multiName: req.body.multiName});
         res.status(200).json(type);

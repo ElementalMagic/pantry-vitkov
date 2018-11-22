@@ -3,7 +3,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
-const indexRouter = require('./routes/index');
+
 var compression = require('compression');
 const bodyParser = require('body-parser');
 const authRouter = require('./routes/auth');
@@ -22,10 +22,9 @@ app.use(logger('dev'));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-//app.use(express.static(path.join(__dirname, 'public')));
 app.use(require('cors')());
 
-app.use('/api', indexRouter);
+
 app.use('/api/auth', authRouter);
 app.use('/api/collection', require('./routes/pv-collections'));
 app.use('/api/production', require('./routes/pv-production'));

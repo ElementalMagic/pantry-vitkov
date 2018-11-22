@@ -70,6 +70,9 @@
       <label for="product-name">Название:</label>
       <input [(ngModel)]="newProdutct.title" type="text" name="product-name" id="product-name"
              placeholder="Введите название товара"/>
+      <label for="product-colID">ID коллекции:</label>
+      <input [(ngModel)]="newProdutct.collectionId" type="text" name="product-colID" id="product-colID"
+             placeholder="Здесь будет ID коллекции" [disabled]="true"/>
       <label for="product-photo">Фото:</label>
       <input type="file" name="product-photo" id="product-photo" (change)="onFileUpload($event)"
              placeholder="Выберите фото товара"/>
@@ -105,8 +108,8 @@
       <input [(ngModel)]="newProdutct.marketUrl" type="text" name="product-url" id="product-url"
              placeholder="Введите ссылку на Wildberries"/>
       <br/><input type="submit" value="Добавить товар" (click)="addNewProduct()"/>
-      <br/><input type="submit" value="Обновить товар" (click)="updateProduct()"/>
-      <br/><input type="submit" value="Удалить товар" (click)="updateProduct()"/>
+      <br/><input type="button" value="Обновить товар" (click)="updateProduct()"/>
+      <br/><input type="button" value="Удалить товар" (click)="deleteProduct()" [disabled]="true"/>
 
     </fieldset>
 
