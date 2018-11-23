@@ -209,4 +209,11 @@ gi
       });
     }
   }
+
+  fixTypes(){
+      this.mainService.fixTypes().subscribe(res => {
+        // @ts-ignore
+        console.log(res.message);
+      })
+  }
 }

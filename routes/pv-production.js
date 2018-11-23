@@ -29,10 +29,19 @@ router.get('/type', async function (req, res) {
         console.log(e);
     }
 });
-router.patch('/type/:id',passport.authenticate('jwt', {session: false}), async function (req, res) {
+router.patch('/type/:id', passport.authenticate('jwt', {session: false}), async function (req, res) {
     try {
         const type = await ProdTypeModel.findOneAndUpdate({_id: req.params.id}, {multiName: req.body.multiName});
         res.status(200).json(type);
+    } catch (e) {
+        console.log(e);
+    }
+});
+
+router.delete('/type/:id', passport.authenticate('jwt', {session: false}), async function (req, res) {
+    try {
+        await ProdTypeModel.deleteOne({_id: req.params.id});
+        res.status(200).json({message: "Тип удален"});
     } catch (e) {
         console.log(e);
     }
@@ -42,7 +51,7 @@ router.get('/types', async function (req, res) {
     try {
         let items;
         if (Object.keys(req.query).length === 0) {
-             items = await ProdTypeModel.find()
+            items = await ProdTypeModel.find()
             /*.skip(req.query.offset ? +req.query.offset : 0 )
             .limit(req.query.limit ? +req.query.limit : 0);*/
         } else {
@@ -112,22 +121,22 @@ router.post('/', passport.authenticate('jwt', {session: false}), upload.single('
     }
 });
 
-router.post('/fixtypes', async function (req, res) {
+router.post('/fixtypes', passport.authenticate('jwt', {session: false}), async function (req, res) {
     try {
         let types = await ProdTypeModel.find();
 
-        for(let i=0; i < types.length; i++){
-            for(let j=0; j < types[i].products.length; j++){
+        for (let i = 0; i < types.length; i++) {
+            for (let j = 0; j < types[i].products.length; j++) {
                 let candidate = await Item.findOne({_id: types[i].products[j].id});
 
-
-                if(!candidate || candidate.length === 0 || Object.keys(candidate).length === 0 || candidate.prodType.toLowerCase() !== types[i].name.toLowerCase()){
+                if (!candidate || candidate.length === 0 || Object.keys(candidate).length === 0 || candidate.prodType.toLowerCase() !== types[i].name.toLowerCase()) {
                     types[i].products.splice(j, 1);
-                } else if( candidate.prodType.toLowerCase() !== types[i].name.toLowerCase()){
+                } else if (candidate.prodType.toLowerCase() !== types[i].name.toLowerCase()) {
                     types[i].products.splice(j, 1);
                 }
             }
-            if(types[i].products.length < 1){
+
+            if (types[i].products.length < 1) {
                 await ProdTypeModel.deleteOne({_id: types[i]._id});
             } else {
                 await ProdTypeModel.findOneAndUpdate({_id: types[i]._id}, types[i]);
@@ -185,7 +194,12 @@ router.patch('/:id', passport.authenticate('jwt', {session: false}), upload.sing
         let typeCandidate = await ProdTypeModel.findOne({name: req.body.prodType.toString().toLowerCase()});
 
         if (typeCandidate) {
-            typeCandidate.products.push({'id': req.params.id});
+            let index = typeCandidate.products.findIndex(p => {
+                return p.id === req.params.id;
+            });
+            if (index === (-1)) {
+                typeCandidate.products.push({'id': req.params.id});
+            }
         } else {
             typeCandidate = new ProdTypeModel({
                 name: req.body.prodType.toLowerCase(),

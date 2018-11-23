@@ -127,4 +127,8 @@ export class ProductsService {
   patchType(id,multiName: string):Observable<ProductType>{
     return this.http.patch<ProductType>(`/api/production/type/${id}`, {multiName: multiName});
   }
+
+  fixTypes(){
+    return this.http.post('/api/production/fixtypes', {});
+  }
 }
