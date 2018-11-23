@@ -7,7 +7,7 @@
          class="handmade-logo lazy">
     <div class="limited">Ограниченная партия 100% Hand Made.</div>
 
-      <div class="products-wrapper"><!-- *ngIf="itemsLoaded; else loader"  -->
+      <div class="products-wrapper">
         <a  [routerLink]="['/collection', item._id]" class="product-card w-inline-block"   *ngFor="let item of items">
           <img
             [src]="item.imgSrc"

@@ -148,6 +148,7 @@ gi
   updateProduct(){
     let ask = confirm(`Точно изменить товар ${this.newProdutct.title}?`);
     if(ask) {
+      console.log(this.newProdutct);
       this.mainService.updateItem(this.newProdutct._id, this.newProdutct, this.image).subscribe(res => {
         this.lg('Продукт обновлен!');
         this.lg(JSON.stringify(res));

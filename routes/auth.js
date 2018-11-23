@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const keys = require('../config/keys')
 
 const ADMIN_LOGIN = "admin";
-const ADMIN_PASSWORD = "123456";
+const ADMIN_PASSWORD = "andrewsasha";
 
 router.post('/login', async function (req, res) {
     const candidate = {email: req.body.email};

@@ -19,9 +19,8 @@ export class SingleCollectionComponent implements OnInit {
   }
 
   ngOnInit() {
-
     if (this.collection) {
-      this.mainService.getCollectionAndCollectionItemsById({limit: 6}, this.collection._id).subscribe(
+      this.mainService.getCollectionAndCollectionItemsById({limit: 4}, this.collection._id).subscribe(
         obj => {
           this.items = obj.collectionItems;
           this.itemsLoaded = true;
@@ -34,15 +33,4 @@ export class SingleCollectionComponent implements OnInit {
       )
     }
   }
-
-  delete(id: string) {
-    this.mainService.deleteItem(id).subscribe(res => {
-      let index = this.items.findIndex(p=> { return p._id === id});
-      this.items.splice(index,1);
-      console.log(res);
-    });
-  }
-
-
-
 }

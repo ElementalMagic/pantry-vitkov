@@ -1,4 +1,5 @@
 <ng-container *ngIf="loadingComplete; else loader">
+  <ng-container></ng-container>
   <a [routerLink]="['/collection', itemId]" [class]="'product-card '+ extraClass">
     <img
       [src]="item.imgSrc"

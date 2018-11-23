@@ -94,7 +94,6 @@ router.post('/', passport.authenticate('jwt', {session: false}), upload.single('
         await candidate.save();
         let typeCandidate = await ProdTypeModel.findOne({name: req.body.prodType.toString().toLowerCase()});
 
-
         if (typeCandidate) {
             typeCandidate.products.push({'id': candidate._id});
         } else {
@@ -113,11 +112,38 @@ router.post('/', passport.authenticate('jwt', {session: false}), upload.single('
     }
 });
 
+router.post('/fixtypes', async function (req, res) {
+    try {
+        let types = await ProdTypeModel.find();
+
+        for(let i=0; i < types.length; i++){
+            for(let j=0; j < types[i].products.length; j++){
+                let candidate = await Item.findOne({_id: types[i].products[j].id});
+
+
+                if(!candidate || candidate.length === 0 || Object.keys(candidate).length === 0 || candidate.prodType.toLowerCase() !== types[i].name.toLowerCase()){
+                    types[i].products.splice(j, 1);
+                } else if( candidate.prodType.toLowerCase() !== types[i].name.toLowerCase()){
+                    types[i].products.splice(j, 1);
+                }
+            }
+            if(types[i].products.length < 1){
+                await ProdTypeModel.deleteOne({_id: types[i]._id});
+            } else {
+                await ProdTypeModel.findOneAndUpdate({_id: types[i]._id}, types[i]);
+            }
+        }
+        res.status(200).json({message: "Типа исправлены"});
+    } catch (e) {
+        console.log(e);
+    }
+});
 router.delete('/:id', passport.authenticate('jwt', {session: false}), async function (req, res) {
     try {
         const item = await Item.findOne({_id: req.params.id});
         await Item.remove({_id: req.params.id});
         const pt = await ProdTypeModel.findOne({name: item.prodType.toLowerCase()});
+        console.log(pt);
         const index = pt.products.findIndex(p => {
             return p.id === item._id
         });
@@ -133,6 +159,7 @@ router.delete('/:id', passport.authenticate('jwt', {session: false}), async func
 
 router.patch('/:id', passport.authenticate('jwt', {session: false}), upload.single('image'), async function (req, res) {
     try {
+        console.log(req.body);
         const updated = {
             title: req.body.title,
             prodType: req.body.prodType,
@@ -154,6 +181,19 @@ router.patch('/:id', passport.authenticate('jwt', {session: false}), upload.sing
             {_id: req.params.id},
             {$set: updated},
             {new: true});
+
+        let typeCandidate = await ProdTypeModel.findOne({name: req.body.prodType.toString().toLowerCase()});
+
+        if (typeCandidate) {
+            typeCandidate.products.push({'id': req.params.id});
+        } else {
+            typeCandidate = new ProdTypeModel({
+                name: req.body.prodType.toLowerCase(),
+                products: [{id: req.params.id}]
+            });
+        }
+
+        typeCandidate.save();
         res.status(200).json(item);
     } catch (e) {
         console.log(e);

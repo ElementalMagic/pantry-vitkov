@@ -101,7 +101,7 @@ export class ProductsService {
     fd.append('vendorCode', product.vendorCode);
     fd.append('barcode', product.barcode);
     fd.append('weight', product.weight);
-    fd.append('equipment', product.prodType);
+    fd.append('equipment', product.equipment);
     fd.append('specs', product.specs);
     fd.append('cost', product.cost);
     fd.append('marketUrl', product.marketUrl);

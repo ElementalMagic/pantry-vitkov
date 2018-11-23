@@ -57,7 +57,6 @@ export class CollectionPageComponent implements OnInit, OnDestroy, OnChanges, Af
               document.querySelector('.prev').addEventListener('click', () => this.mySiema.prev());
               document.querySelector('.next').addEventListener('click', () => this.mySiema.next());
             }, 100);
-            console.log(this.pages);
           })
         } else if (params['col']) {
           this.isCollectionPage = true;
@@ -114,12 +113,7 @@ export class CollectionPageComponent implements OnInit, OnDestroy, OnChanges, Af
 
   showAllProducts() {
     this.showAllMode = !this.showAllMode;
-    /*if(!this.showAllMode){
-      this.mySiema = new Siema();
-      document.querySelector('.prev').addEventListener('click', () => this.mySiema.prev());
-      document.querySelector('.next').addEventListener('click', () => this.mySiema.next());
-    }*/
-    console.log(this.showAllMode);
+
   }
 
 }
