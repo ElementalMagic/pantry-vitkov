@@ -13,7 +13,7 @@
              class="w-password-page w-input" [(ngModel)]="password" >
       <input (click)="onSubmit()" type="submit" value="Submit" data-wait="Please wait..."
              class="w-password-page w-button"></form>
-    <div class="w-password-page w-form-fail">
+    <div class="w-password-page w-form-fail" *ngIf="fail">
       <div>Incorrect password. Please try again.</div>
     </div>
     <div style="display:none" class="w-password-page w-embed w-script">

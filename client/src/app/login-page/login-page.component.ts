@@ -12,7 +12,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class LoginPageComponent implements OnInit {
   password: string = '';
-
+  fail = false;
   constructor(private  auth: AuthService,
               private router: Router,
               private route: ActivatedRoute) {
@@ -24,10 +24,10 @@ export class LoginPageComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.password == "andrewsasha") {
+
       const user = {
         email: 'admin',
-        password: 'andrewsasha'
+        password: this.password
       };
       this.aSub = this.auth.login(user).subscribe(
         () => {
@@ -35,9 +35,10 @@ export class LoginPageComponent implements OnInit {
           this.router.navigate(['/control'])
         },
         error => {
+          this.fail = true;
           console.warn(error);
         }
       );
     }
-  }
+
 }
