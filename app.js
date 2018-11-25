@@ -10,7 +10,7 @@ const authRouter = require('./routes/auth');
 const passport = require('passport');
 const keys = require('./config/keys');
 var app = express();
-app.use(helmet());
+//app.use(helmet());
 app.use(compression());
 mongoose.connect(keys.mongoURI)
     .then(() => console.log('MongoDB connected.'))
