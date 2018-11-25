@@ -3,13 +3,14 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
-
+const helmet = require('helmet');
 var compression = require('compression');
 const bodyParser = require('body-parser');
 const authRouter = require('./routes/auth');
 const passport = require('passport');
 const keys = require('./config/keys');
 var app = express();
+app.use(helmet());
 app.use(compression());
 mongoose.connect(keys.mongoURI)
     .then(() => console.log('MongoDB connected.'))
