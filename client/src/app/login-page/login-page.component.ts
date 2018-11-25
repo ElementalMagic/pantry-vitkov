@@ -24,7 +24,6 @@ export class LoginPageComponent implements OnInit {
   }
 
   onSubmit() {
-
       const user = {
         email: 'admin',
         password: this.password
