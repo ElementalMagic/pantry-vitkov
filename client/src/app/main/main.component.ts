@@ -14,7 +14,7 @@ export class MainComponent implements OnInit {
   mainCollection: Collection;
   mColLoaded = false;
   constructor(private mainService: ProductsService, private meta: Meta, private title: Title) {
-    this.title.setTitle('Vitkov Pantry - Handmade продукция');
+    this.title.setTitle('Vitkov Pantry - дизайнерские коллекции подарочной продукции');
     this.meta.addTag({name: 'description', content: 'Коллекции сувенирной продукции «PANTRY VITKOV», созданные в сотрудничестве с российскими художниками.\n' +
         'В ассортименте: наборы подставок под посуду, подставки под чашки и бокалы из картона и пробкового полотна, блокноты, скетчбуки.\n' +
         'Продукция изготавливается на собственном производстве, которое находится в Московской области.\n' +
