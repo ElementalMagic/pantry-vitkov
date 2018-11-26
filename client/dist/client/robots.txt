@@ -6,5 +6,10 @@ Disallow: /documents/*
 Disallow: /images/*
 
 User-agent: Yandex
+Disallow:
+Disallow: /control
+Disallow: /login
+Disallow: /documents/*
+Disallow: /images/*
 Host: pvitkov.ru
 
