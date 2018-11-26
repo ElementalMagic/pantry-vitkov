@@ -1,0 +1,10 @@
+User-agent: *
+Disallow:
+Disallow: /control
+Disallow: /login
+Disallow: /documents/*
+Disallow: /images/*
+
+User-agent: Yandex
+Host: pvitkov.ru
+
