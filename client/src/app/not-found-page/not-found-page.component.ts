@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ProductsService} from "../shared/services/products.service";
+import {Meta, Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-not-found-page',
@@ -7,7 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotFoundPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private title: Title,private meta: Meta) {
+    this.title.setTitle('Page Not Found');
+    this.meta.addTag({name:'description', content:'Page not found'});
+  }
 
   ngOnInit() {
   }

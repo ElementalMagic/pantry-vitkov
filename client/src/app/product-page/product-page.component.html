@@ -35,19 +35,32 @@
       {{item.specs}}
     </div>
     <div class="call-to-action">
-      <div class="depiction-type price">Стоимость:</div>
-      <div class="span price">{{item.cost}} руб.</div>
-      <a [href]="item.marketUrl" class="main-button buy w-button">Купить</a></div>
+      <div class="depiction-type price" style="display: none">Стоимость:</div>
+      <div class="span price" style="display: none">{{item.cost}} руб.</div>
+      <a [href]="item.marketUrl" class="main-button buy w-button">Купить</a>
+    </div>
     <div class="share">
       <div class="share-header">
         Поделиться:
       </div>
       <div class="social-share">
-        <img src="images/Group-602x.png" alt="vk" class="social-icon lazy">
+        <a href="http://vk.com/share.php?title=Super%20fast%20and%20easy%20Social%20Media%20Sharing%20Buttons.%20No%20JavaScript.%20No%20tracking.&amp;url=http%3A%2F%2Fsharingbuttons.io"
+           target="_blank">
+          <img src="images/Group-602x.png" alt="vk" class="social-icon lazy">
+        </a>
+
         <img src="images/Group-592x.png" alt="ok" class="social-icon lazy">
-        <img src="images/Group-622x.png" alt="facebook" class="social-icon lazy">
-        <img src="images/Group-612x.png" alt="instagram" class="social-icon lazy">
+
+        <a href="https://facebook.com/sharer/sharer.php?u=http%3A%2F%2Fsharingbuttons.io"
+           target="_blank">
+          <img src="images/Group-622x.png" alt="facebook" class="social-icon lazy">
+        </a>
+
+        <a href="https://pinterest.com/pin/create/button/?url=http%3A%2F%2Fsharingbuttons.io&amp;media=http%3A%2F%2Fsharingbuttons.io&amp;description=Super%20fast%20and%20easy%20Social%20Media%20Sharing%20Buttons.%20No%20JavaScript.%20No%20tracking."
+           target="_blank">
         <img src="images/Group-632x.png" alt="printerest" class="social-icon lazy">
+        </a>
+
       </div>
     </div>
   </div>
