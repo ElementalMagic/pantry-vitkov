@@ -13,3 +13,5 @@ Disallow: /documents/*
 Disallow: /images/*
 Host: pvitkov.ru
 
+Sitemap: http://pvitkov.ru/sitemap.xml
+
