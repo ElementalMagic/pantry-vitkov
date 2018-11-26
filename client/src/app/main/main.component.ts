@@ -14,14 +14,14 @@ export class MainComponent implements OnInit {
   mainCollection: Collection;
   mColLoaded = false;
   constructor(private mainService: ProductsService, private meta: Meta, private title: Title) {
-  }
-
-  ngOnInit() {
     this.title.setTitle('Vitkov Pantry - Handmade продукция');
     this.meta.addTag({name: 'description', content: 'Коллекции сувенирной продукции «PANTRY VITKOV», созданные в сотрудничестве с российскими художниками.\n' +
         'В ассортименте: наборы подставок под посуду, подставки под чашки и бокалы из картона и пробкового полотна, блокноты, скетчбуки.\n' +
         'Продукция изготавливается на собственном производстве, которое находится в Московской области.\n' +
         'Качество продукции соответствует аналогам европейского производства.'});
+  }
+
+  ngOnInit() {
     var myLazyLoad = new LazyLoad({
       elements_selector: ".lazy"
     });
