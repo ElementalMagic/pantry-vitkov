@@ -26,8 +26,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(require('cors')());
 
 app.use(function (req, res, next) {
-    if (req.get('Host') != 'pvitkov.ru') {
-        /*res.status(451).send('This is not legal site. Please visit http://pvitkov.ru.');*/
+    if (req.get('Host') != 'pvitkov.ru' && (req.get('Host') != '95.213.195.64')) {
         res.status(451).sendFile(
             path.resolve(
             __dirname, 'theme', 'notLegal.html'
