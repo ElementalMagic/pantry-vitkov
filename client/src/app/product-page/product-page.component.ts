@@ -52,7 +52,7 @@ export class ProductPageComponent implements OnInit {
                   property: "og:url", content: `http://pvitkov.ru/collection/${this.item._id}`
                 },
                 {
-                  property: "og:image", content: `http://pvitkov.ru/images/${this.item.imgSrc}`
+                  property: "og:image", content: `http://pvitkov.ru/${this.item.imgSrc}`
                 }
               ]);
               var myLazyLoad = new LazyLoad({
