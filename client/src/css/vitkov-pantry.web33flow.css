@@ -33,6 +33,7 @@ html {
   color: #3d3d3d;
   font-size: 16px;
   position: relative;
+  background-color: black;
 }
 .navbar {
   display: -webkit-box;

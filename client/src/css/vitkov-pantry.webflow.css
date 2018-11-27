@@ -62,14 +62,14 @@ html {
 }
 .nav-link {
   margin-left: 0;
-  color: #707070;
+  color: #3d3d3d;
   font-size: 14px;
   font-weight: 600;
   text-decoration: none;
   text-transform: uppercase;
 }
 .nav-link.w--current {
-  color: #000;
+  color: #3d3d3d;
 }
 .hero-section {
   display: -webkit-box;
@@ -179,8 +179,8 @@ html {
   transform: translate(0, 0);
   color: #3d3d3d;
   text-decoration: none;
-  padding-left: 0.5em;
-  padding-right: 0.5em;
+  padding-left: 1em;
+  padding-right: 1em;
 }
 
 .product-card:hover {
@@ -197,6 +197,7 @@ html {
 .product-price {
   font-size: 20px;
   font-weight: 600;
+  display: none;
 }
 .hero-image {
   width: 65%;
@@ -228,6 +229,12 @@ html {
   text-decoration: none;
   text-transform: uppercase;
 }
+
+.main-button:hover {
+  background-color: #3d3d3d;
+  color: #fff;
+}
+
 .main-button.buy {
   width: 80%;
   margin-top: 40px;
@@ -400,7 +407,28 @@ html {
   padding-left: 60px;
   border-bottom: 1px solid #e6e6e6;
   font-size: 17px;
+  cursor: pointer;
 }
+
+.filter-category:focus {
+  outline: none;
+  /* background-color: #fff; */
+  color: #000;
+  font-weight: 600;
+}
+
+.filter-category:hover {
+  background-color: #fff;
+}
+
+.filter-category {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 60px;
+  border-bottom: 1px solid #e6e6e6;
+  font-size: 17px;
+}
+
 .product-type-filter {
   margin-top: 70px;
 }
@@ -586,6 +614,10 @@ html {
   color: #707070;
   font-size: 14px;
   text-decoration: none;
+}
+
+.back:hover {
+  color: #3d3d3d;
 }
 .link-block {
   display: -webkit-box;
