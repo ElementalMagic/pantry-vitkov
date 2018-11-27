@@ -22,9 +22,20 @@ require('./middleware/passport')(passport);
 app.use(logger('dev'));
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(require('cors')());
 
+app.use(function (req, res, next) {
+    if (req.get('Host') != 'pvitkov.ru') {
+        /*res.status(451).send('This is not legal site. Please visit http://pvitkov.ru.');*/
+        res.status(451).sendFile(
+            path.resolve(
+            __dirname, 'theme', 'notLegal.html'
+        ));
+        return;
+    }
+    next();
+});
 
 app.use('/api/auth', authRouter);
 app.use('/api/collection', require('./routes/pv-collections'));
@@ -34,13 +45,15 @@ app.use('/images', express.static('images'));
 app.use('/js', express.static('js'));
 app.use('/documents', express.static('documents'));
 
+
 app.use(express.static('client/dist/client'));
 
-app.get('*', (req, res)=>{
+app.get('*', (req, res, next) => {
     res.sendFile(
         path.resolve(
             __dirname, 'client', 'dist', 'client', 'index.html'
         )
     );
-})
+});
+
 module.exports = app;
