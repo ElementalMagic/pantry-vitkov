@@ -3,7 +3,6 @@ Disallow:
 Disallow: /control
 Disallow: /login
 
-
 User-agent: Yandex
 Disallow:
 Disallow: /control

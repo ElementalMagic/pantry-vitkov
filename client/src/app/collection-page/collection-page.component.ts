@@ -5,6 +5,7 @@ import {switchMap} from "rxjs/operators";
 import {ProductsService} from "../shared/services/products.service";
 import {Collection, CollectionItems, ProductType, ProductTypeItem} from "../shared/interfaces";
 import Siema from 'siema/dist/siema.min.js';
+import {Meta, Title} from "@angular/platform-browser";
 
 
 let OFFSET = 0;
@@ -19,7 +20,15 @@ export class CollectionPageComponent implements OnInit, OnDestroy, OnChanges, Af
 
   @Input('load') loadingComplete;
 
-  constructor(private route: ActivatedRoute, private mainService: ProductsService) {
+  constructor(private route: ActivatedRoute, private mainService: ProductsService, private title: Title, private meta: Meta) {
+    this.title.setTitle(`Vitkov Pantry`);
+    this.meta.addTag({
+      name: 'description',
+      content: 'Коллекции сувенирной продукции «PANTRY VITKOV», созданные в сотрудничестве с российскими художниками.\\n\' +\n' +
+        '        \'В ассортименте: наборы подставок под посуду, подставки под чашки и бокалы из картона и пробкового полотна, блокноты, скетчбуки.\\n\' +\n' +
+        '        \'Продукция изготавливается на собственном производстве, которое находится в Московской области.\\n\' +\n' +
+        '        \'Качество продукции соответствует аналогам европейского производства.'
+    });
   }
 
   mySiema;
@@ -40,8 +49,9 @@ export class CollectionPageComponent implements OnInit, OnDestroy, OnChanges, Af
           this.isCollectionPage = false;
           this.pageTypeDefine = true;
           this.mainService.getItemsByType(params['prodType']).subscribe(res => {
-            this.loadingComplete = true;
             this.typeAndItemsArr = res;
+            this.typeAndItemsArr.products.reverse();
+            this.title.setTitle(`Vitkov Pantry - товары по типу ${this.typeAndItemsArr.multiName}`);
             let temprArr = [];
             if (res.products.length <= 12) {
               temprArr.push(res.products);
@@ -52,11 +62,19 @@ export class CollectionPageComponent implements OnInit, OnDestroy, OnChanges, Af
               }
             }
             this.pages = temprArr.splice(0, temprArr.length);
+            for (let i = 0; i < this.pages.length; i++) {
+              for (let j = 0; j < this.pages[i].length; j++) {
+                this.mainService.getItemById(this.pages[i][j].id).subscribe(res => {
+                  this.pages[i][j] = res;
+                });
+              }
+            }
+            this.loadingComplete = true;
             setTimeout(function () {
               this.mySiema = new Siema();
               document.querySelector('.prev').addEventListener('click', () => this.mySiema.prev());
               document.querySelector('.next').addEventListener('click', () => this.mySiema.next());
-            }, 100);
+            }, 10);
           })
         } else if (params['col']) {
           this.isCollectionPage = true;
@@ -68,9 +86,16 @@ export class CollectionPageComponent implements OnInit, OnDestroy, OnChanges, Af
             this.pages = [];
             this.loadingComplete = true;
             this.collection = res;
+            this.collection.collectionItems.reverse();
+            this.title.setTitle(`Vitkov Pantry - ${this.collection.collection.name}`);
+            this.meta.updateTag({
+              name: 'description',
+              content: this.collection.collection.title
+            }, `name='description'`);
             if (res.collectionItems.length <= 12) {
               this.pages.push(res.collectionItems);
-            } else {
+            }
+            else {
               this.pages.push(res.collectionItems.splice(0, STEP));
               while (res.collectionItems.length > STEP - 2) {
                 this.pages.push(res.collectionItems.splice(0, STEP));

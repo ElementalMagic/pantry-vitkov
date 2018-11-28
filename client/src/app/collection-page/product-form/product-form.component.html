@@ -1,6 +1,6 @@
 <ng-container *ngIf="loadingComplete; else loader">
   <ng-container></ng-container>
-  <a [routerLink]="['/collection', itemId]" [class]="'product-card '+ extraClass">
+  <a [routerLink]="['/collection', itemId]" class="product-card">
     <img
       [src]="item.imgSrc"
       sizes="(max-width: 479px) 44vw, (max-width: 991px) 22vw, 175.8125px"

@@ -72,9 +72,19 @@
   <ng-container *ngIf="!showAllMode">
     <div class="siema">
       <div class="products-wrapper" *ngFor="let page of pages">
-        <app-product-form *ngFor="let item of page" [id]="item.id"
-                          class="product-card w-inline-block">
-        </app-product-form>
+        <a *ngFor="let item of page" [routerLink]="['/collection', item._id]" class="product-card">
+          <img
+            [src]="item.imgSrc"
+            sizes="(max-width: 479px) 44vw, (max-width: 991px) 22vw, 175.8125px"
+            [alt]="item.title"
+            class="product-image">
+          <div class="product-name">
+            {{item.title}}
+          </div>
+          <div class="product-price">
+            {{item.cost}} руб.
+          </div>
+        </a>
       </div>
     </div>
   </ng-container>
