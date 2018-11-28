@@ -25,7 +25,7 @@ router.get('/:id', async function (req, res) {
         try {
              items = await Item
                 .find({collectionId: col._id})
-                .sort({date: -1})
+                .sort({date: 1})
                 .skip(+req.query.offset)
                 .limit(+req.query.limit);
         } catch (e) {

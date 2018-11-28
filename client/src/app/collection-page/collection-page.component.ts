@@ -86,7 +86,6 @@ export class CollectionPageComponent implements OnInit, OnDestroy, OnChanges, Af
             this.pages = [];
             this.loadingComplete = true;
             this.collection = res;
-            this.collection.collectionItems.reverse();
             this.title.setTitle(`Vitkov Pantry - ${this.collection.collection.name}`);
             this.meta.updateTag({
               name: 'description',
