@@ -2,15 +2,13 @@ User-agent: *
 Disallow:
 Disallow: /control
 Disallow: /login
-Disallow: /images/*
-Disallow: /js/*
+
 
 User-agent: Yandex
 Disallow:
 Disallow: /control
 Disallow: /login
-Disallow: /images/*
-Disallow: /js/*
+
 Host: pvitkov.ru
 
 Sitemap: http://pvitkov.ru/sitemap.xml
