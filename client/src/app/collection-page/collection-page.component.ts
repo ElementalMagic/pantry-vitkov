@@ -74,7 +74,7 @@ export class CollectionPageComponent implements OnInit, OnDestroy, OnChanges, Af
               this.mySiema = new Siema();
               document.querySelector('.prev').addEventListener('click', () => this.mySiema.prev());
               document.querySelector('.next').addEventListener('click', () => this.mySiema.next());
-            }, 10);
+            }, 50);
           })
         } else if (params['col']) {
           this.isCollectionPage = true;
