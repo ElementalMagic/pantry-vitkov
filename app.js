@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(require("cors")());
 app.use(require('prerender-node'));
 app.use(function(req, res, next) {
-  if (req.get("Host") != "pvitkov.ru" && req.get("Host") != "95.213.195.64") {
+  if (req.get("Host") != "pvitkov.ru" && req.get("Host") != "95.213.195.64" && process.env.PROTECTION) {
     res.status(451).sendFile(path.resolve(__dirname, "theme", "notLegal.html"));
     return;
   }

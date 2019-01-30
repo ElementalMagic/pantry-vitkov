@@ -52,16 +52,19 @@ export class CollectionPageComponent implements OnInit, OnDestroy, OnChanges, Af
             this.typeAndItemsArr = res;
             this.typeAndItemsArr.products.reverse();
             this.title.setTitle(`Vitkov Pantry - товары по типу ${this.typeAndItemsArr.multiName}`);
-            let temprArr = [];
+            this.pages = [];
             if (res.products.length <= 12) {
-              temprArr.push(res.products);
+              this.pages.push(res.products);
             } else {
-              temprArr.push(res.products.splice(0, STEP));
+              this.pages.push(res.products.splice(0, STEP));
               while (res.products.length > STEP - 2) {
-                temprArr.push(res.products.splice(0, STEP));
+                this.pages.push(res.products.splice(0, STEP));
               }
+              this.pages.push(res.products);
             }
-            this.pages = temprArr.splice(0, temprArr.length);
+
+            // this.pages = temprArr.splice(0, temprArr.length);
+
             for (let i = 0; i < this.pages.length; i++) {
               for (let j = 0; j < this.pages[i].length; j++) {
                 this.mainService.getItemById(this.pages[i][j].id).subscribe(res => {
@@ -69,12 +72,14 @@ export class CollectionPageComponent implements OnInit, OnDestroy, OnChanges, Af
                 });
               }
             }
+
             this.loadingComplete = true;
             setTimeout(function () {
+
               this.mySiema = new Siema();
               document.querySelector('.prev').addEventListener('click', () => this.mySiema.prev());
               document.querySelector('.next').addEventListener('click', () => this.mySiema.next());
-            }, 50);
+            }, 10);
           })
         } else if (params['col']) {
           this.isCollectionPage = true;
@@ -91,6 +96,8 @@ export class CollectionPageComponent implements OnInit, OnDestroy, OnChanges, Af
               name: 'description',
               content: this.collection.collection.title
             }, `name='description'`);
+
+
             if (res.collectionItems.length <= 12) {
               this.pages.push(res.collectionItems);
             }
@@ -101,6 +108,8 @@ export class CollectionPageComponent implements OnInit, OnDestroy, OnChanges, Af
               }
               this.pages.push(res.collectionItems);
             }
+
+
             setTimeout(function () {
               this.mySiema = new Siema();
               document.querySelector('.prev').addEventListener('click', () => this.mySiema.prev());
